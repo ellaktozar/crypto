@@ -44,9 +44,9 @@ public class prog extends JFrame {
 	private JPanel writePane = new JPanel();
 	private JTextField resourseField = new JTextField(),
 			passwordField = new JTextField();
-	private JButton saveButton = new JButton("Сохранить");
-	private JLabel res = new JLabel("Введите ресурс");
-	private JLabel pas = new JLabel("Введите пароль");
+	private JButton saveButton = new JButton("РЎРѕС…СЂР°РЅРёС‚СЊ");
+	private JLabel res = new JLabel("Р’РІРµРґРёС‚Рµ СЂРµСЃСѓСЂСЃ");
+	private JLabel pas = new JLabel("Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ");
 
 	/**
 	 * Launch the application.
@@ -55,7 +55,7 @@ public class prog extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Автоматически созданная заглушка метода
+				// TODO РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЃРѕР·РґР°РЅРЅР°СЏ Р·Р°РіР»СѓС€РєР° РјРµС‚РѕРґР°
 				prog frame = new prog();
 				frame.runOnStart(frame);
 			}
@@ -66,13 +66,13 @@ public class prog extends JFrame {
 		File nf = new File(System.getProperty("user.dir") + "/safe/safe.mv.db");
 		if (!nf.exists()) {
 			if (!pin1.createNewPin()) {
-				JOptionPane.showMessageDialog(null, "Пароль не введен",
-						"Ошибка", 0);
+				JOptionPane.showMessageDialog(null, "РџР°СЂРѕР»СЊ РЅРµ РІРІРµРґРµРЅ",
+						"РћС€РёР±РєР°", 0);
 				System.exit(0);
 			}
 		} else {
 			pin1.inPin = JOptionPane
-					.showInputDialog(null, "Запуск", "Введите пин-код", 1)
+					.showInputDialog(null, "Р—Р°РїСѓСЃРє", "Р’РІРµРґРёС‚Рµ РїРёРЅ-РєРѕРґ", 1)
 					.toString().trim();
 		}
 
@@ -92,8 +92,8 @@ public class prog extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.setBackground(new Color(255, 255, 255));
-		JButton deleteBtn = new JButton("Удалить"); //Кнопка удаления ряда
-		setTitle("Сейф паролей");
+		JButton deleteBtn = new JButton("РЈРґР°Р»РёС‚СЊ"); //РљРЅРѕРїРєР° СѓРґР°Р»РµРЅРёСЏ СЂСЏРґР°
+		setTitle("РЎРµР№С„ РїР°СЂРѕР»РµР№");
 		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int[] selectedRows = table.getSelectedRows();
@@ -107,18 +107,18 @@ public class prog extends JFrame {
 					if (pin1.DeleteRow(rowsForDelete)) {
 						printTable();
 					} else {
-						JOptionPane.showMessageDialog(null, "Ошибка записи",
-								"Ошибка", 0);
+						JOptionPane.showMessageDialog(null, "РћС€РёР±РєР° Р·Р°РїРёСЃРё",
+								"РћС€РёР±РєР°", 0);
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Выделите строчки",
-							"Ошибка", 0);
+					JOptionPane.showMessageDialog(null, "Р’С‹РґРµР»РёС‚Рµ СЃС‚СЂРѕС‡РєРё",
+							"РћС€РёР±РєР°", 0);
 				}
 			}
 		});
 		deleteBtn.setBounds(55, 225, 89, 23);
 
-		saveButton.addActionListener(new ActionListener() {//Кнопка для сохранения новых данных
+		saveButton.addActionListener(new ActionListener() {//РљРЅРѕРїРєР° РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РЅРѕРІС‹С… РґР°РЅРЅС‹С…
 			public void actionPerformed(ActionEvent arg0) {
 
 				String resourceName = resourseField.getText().trim(), resourcePassword = passwordField
@@ -130,16 +130,16 @@ public class prog extends JFrame {
 						printTable();
 					} else {
 						JOptionPane.showMessageDialog(writeFrame,
-								"Ошибка записи!");
+								"РћС€РёР±РєР° Р·Р°РїРёСЃРё!");
 					}
 				} else {
 					JOptionPane.showMessageDialog(writeFrame,
-							"Все поля должны быть заполнены!");
+							"Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹!");
 				}
 			}
 		});
 
-		JButton btnWrite = new JButton(//Кнопка для добавления новых данных
+		JButton btnWrite = new JButton(//РљРЅРѕРїРєР° РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІС‹С… РґР°РЅРЅС‹С…
 				"\u0417\u0430\u043F\u0438\u0441\u0430\u0442\u044C");
 		btnWrite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -149,7 +149,7 @@ public class prog extends JFrame {
 				writePane.setBorder(new EmptyBorder(5, 5, 5, 5));
 				writePane.setBackground(Color.WHITE);
 				writeFrame.setContentPane(writePane);
-				writeFrame.setTitle("Добавить новую запись");
+				writeFrame.setTitle("Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІСѓСЋ Р·Р°РїРёСЃСЊ");
 
 				resourseField.setBounds(10, 45, 265, 30);
 				resourseField
@@ -192,7 +192,7 @@ public class prog extends JFrame {
 
 	private void printTable() {
 		table.setModel(new DefaultTableModel(pin1.drawTbl(), new String[] {
-				"id", "Ресурс", "Пароль" }));
+				"id", "Р РµСЃСѓСЂСЃ", "РџР°СЂРѕР»СЊ" }));
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setResizable(false);
