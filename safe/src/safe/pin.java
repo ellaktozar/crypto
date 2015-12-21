@@ -1,106 +1,112 @@
 package safe;
 
-import java.io.File;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-public class pin {
+public class pin
+{
 
-	private String pinFileText = "";
+	//private String pinFileText = "";
 	int pinIn;
 	int pinTrue;
 	private boolean showAddBtn;
 	String tmp_1;
 	String inPin;
 	String strPin = null;
-
-	public pin() {
-
-	}
-
 	crypt cr = new crypt();
 
-	public boolean createNewPin() {
+	public boolean createNewPin()
+	{
 		boolean ret = false;
-		try {
-			
+		try
+		{
+			System.out.println("creating pin");
 			Class.forName("org.h2.Driver").newInstance();
-			strPin = JOptionPane
-					.showInputDialog(null, "Ïðèäóìàéòå pin-êîä",
-							"Ïåðâûé çàïóñê", 1).toString().trim();
+			strPin = JOptionPane.showInputDialog(null, "Ð’Ð’ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¸Ð½-ÐºÐ¾Ð´:", "ÐÐ¾Ð²Ñ‹Ð¹ Ð¿Ð°Ñ€Ð¾Ð»ÑŒ", 1).toString().trim();
 			this.inPin = strPin;
-			if (inPin.length() > 0) {
-				Connection conn = DriverManager.getConnection("jdbc:h2:"
-						+ System.getProperty("user.dir") + "/safe/safe", "sa",
-						inPin);
+			if (inPin.length() > 0)
+			{
+				Connection conn = DriverManager
+						.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe", "sa", inPin);
 				Statement st = null;
 				st = conn.createStatement();
-				st.execute("CREATE TABLE IF NOT EXISTS passwords (id INT(10) PRIMARY KEY AUTO_INCREMENT, res VARCHAR(255), pass VARCHAR(15))");
+				st.execute(
+						"CREATE TABLE IF NOT EXISTS passwords (id INT(10) PRIMARY KEY AUTO_INCREMENT, res VARCHAR(255), pass VARCHAR(100))");
 				st.close();
 				conn.close();
 				ret = true;
-				cr.setUp();
-				
 			}
-		} catch (Exception exp) {
+		}
+		catch (Exception exp)
+		{
 			exp.printStackTrace();
 		}
 		return ret;
 	}
 
-	Integer checkQuery() {
+	Integer checkQuery()
+	{
 		Integer i = null;
-		try {
+		try
+		{
 			Class.forName("org.h2.Driver").newInstance();
-			Connection conn = DriverManager.getConnection(
-					"jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
+			Connection conn = DriverManager.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
 					"sa", inPin);
 			Statement st = null;
 			st = conn.createStatement();
 			ResultSet rs;
 			rs = st.executeQuery("SELECT COUNT(*) FROM passwords");
 			i = -1;
-			if (rs.next()) {
+			if (rs.next())
+			{
 				i = rs.getInt(1);
 			}
 			st.close();
 			conn.close();
-		} catch (Exception exp) {
+		}
+		catch (Exception exp)
+		{
 		}
 		return i;
 	}
 
-	Boolean checkRow(String str1, String str2) {
+	Boolean checkRow(String str1, String str2)
+	{
 		boolean a = false;
-		try {
+		try
+		{
 			Class.forName("org.h2.Driver").newInstance();
-			Connection conn = DriverManager.getConnection(
-					"jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
+			Connection conn = DriverManager.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
 					"sa", inPin);
 			Statement st = null;
 			st = conn.createStatement();
-			crypt cr1 = new crypt();
 
-			st.execute("INSERT INTO passwords (res, pass) VALUES ('"
-					+ cr1.encrypt(str1) + "','" + cr1.encrypt(str2) + "')");
+			st.execute("INSERT INTO passwords (res, pass) VALUES ('" + cr.encrypt(str1) + "','" + cr.encrypt(str2)
+					+ "')");
 			st.close();
 			conn.close();
 			a = true;
-		} catch (Exception exp) {
+		}
+		catch (Exception exp)
+		{
 			exp.printStackTrace();
 		}
 		return a;
 	}
 
-	Object[][] drawTbl() {
+	Object[][] drawTbl()
+	{
 		Object[][] mas;
-		try {
+		try
+		{
 			this.showAddBtn = true;
 			mas = new Object[checkQuery()][3];
 			Class.forName("org.h2.Driver").newInstance();
-			Connection conn = DriverManager.getConnection(
-					"jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
+			Connection conn = DriverManager.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
 					"sa", inPin);
 			Statement st = null;
 			st = conn.createStatement();
@@ -108,56 +114,68 @@ public class pin {
 			rs = st.executeQuery("SELECT * FROM passwords");
 
 			int counter = 0;
-			while (rs.next()) {
-				crypt cr1 = new crypt();
+			while (rs.next())
+			{
 				mas[counter][0] = rs.getString("id");
-				mas[counter][1] = cr1.decrypt(rs.getString("res"));
-				mas[counter][2] = cr1.decrypt(rs.getString("pass"));
+				mas[counter][1] = cr.decrypt(rs.getString("res"));
+				mas[counter][2] = cr.decrypt(rs.getString("pass"));
 				counter++;
 			}
 			st.close();
 			conn.close();
-		} catch (Exception e) {
-
-			mas = new Object[][] { { "Îøèáêà", "Íå òîò ïàðîëü", "Íåò äîñòóïà" }, };
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			mas = new Object[][]
+			{
+					{ "ÐžÑˆÐ¸Ð±ÐºÐ°", "ÐžÑˆÐ¸Ð±ÐºÐ°", "ÐžÑˆÐ¸Ð±ÐºÐ°" }, };
 			this.showAddBtn = false;
 		}
 		return mas;
 	}
 
-	public boolean checkshowAddBtn() {
+	public boolean checkshowAddBtn()
+	{
 		boolean a = false;
 
-		if (this.showAddBtn) {
+		if (this.showAddBtn)
+		{
 			a = true;
 		}
 		return a;
 	}
 
-	boolean DeleteRow(int[] id) {
+	boolean DeleteRow(int[] id)
+	{
 		boolean result = false;
-		if (id.length > 0) {
+		if (id.length > 0)
+		{
 			String ids = "";
 
-			for (int i = 0; i < id.length; i++) {
+			for (int i = 0; i < id.length; i++)
+			{
 				ids += "" + id[i] + "";
-				if ((i + 1) != id.length) {
+				if ((i + 1) != id.length)
+				{
 					ids += ",";
 				}
 			}
 
-			try {
+			try
+			{
 				Class.forName("org.h2.Driver").newInstance();
-				Connection conn = DriverManager.getConnection("jdbc:h2:"
-						+ System.getProperty("user.dir") + "/safe/safe", "sa",
-						inPin);
+				Connection conn = DriverManager
+						.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe", "sa", inPin);
 				Statement st = null;
 				st = conn.createStatement();
 				st.execute("DELETE FROM passwords WHERE id IN (" + ids + ")");
 				st.close();
 				conn.close();
 				result = true;
-			} catch (Exception exp) {
+			}
+			catch (Exception exp)
+			{
 				exp.printStackTrace();
 			}
 		}
