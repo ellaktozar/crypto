@@ -40,7 +40,8 @@ public class prog extends JFrame
 
 	private JFrame writeFrame = new JFrame();
 	private JPanel writePane = new JPanel();
-	private JTextField resourseField = new JTextField(), passwordField = new JTextField();
+	private JTextField resourseField = new JTextField(),
+			passwordField = new JTextField();
 	private JButton saveButton = new JButton("Сохранить");
 	private JLabel res = new JLabel("Введите ресурс");
 	private JLabel pas = new JLabel("Введите пароль");
@@ -66,22 +67,18 @@ public class prog extends JFrame
 		File nf = new File(System.getProperty("user.dir") + "/safe/safe.mv.db");
 		if (!nf.exists())
 		{
-			System.out.println("creating new db");
 			if (!pin1.createNewPin())
 			{
-				System.out.println("cannot create pin");
-				JOptionPane.showMessageDialog(null, "Пароль не введен", "Ошибка", 0);
+				JOptionPane.showMessageDialog(null, "Пароль не введен",
+						"Ошибка", 0);
 				System.exit(0);
-			}
-			else
-			{
-				System.out.println("pin successfully created");
 			}
 		}
 		else
 		{
-			System.out.println("using existing db");
-			pin1.inPin = JOptionPane.showInputDialog(null, "Запуск", "Введите пин-код", 1).toString().trim();
+			pin1.inPin = JOptionPane
+					.showInputDialog(null, "Запуск", "Введите пин-код", 1)
+					.toString().trim();
 		}
 
 		frame.setVisible(true);
@@ -115,7 +112,8 @@ public class prog extends JFrame
 					int[] rowsForDelete = new int[selectedRows.length];
 					for (int i = 0; i < selectedRows.length; i++)
 					{
-						rowsForDelete[i] = Integer.parseInt(table.getValueAt(selectedRows[i], 0).toString());
+						rowsForDelete[i] = Integer.parseInt(table.getValueAt(
+								selectedRows[i], 0).toString());
 					}
 					if (pin1.DeleteRow(rowsForDelete))
 					{
@@ -123,12 +121,14 @@ public class prog extends JFrame
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(null, "Ошибка записи", "Ошибка", 0);
+						JOptionPane.showMessageDialog(null, "Ошибка записи",
+								"Ошибка", 0);
 					}
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "Выделите строчки", "Ошибка", 0);
+					JOptionPane.showMessageDialog(null, "Выделите строчки",
+							"Ошибка", 0);
 				}
 			}
 		});
@@ -140,9 +140,12 @@ public class prog extends JFrame
 			public void actionPerformed(ActionEvent arg0)
 			{
 
-				String resourceName = resourseField.getText().trim(), resourcePassword = passwordField.getText().trim();
+				String resourceName = resourseField.getText().trim(), resourcePassword = passwordField
+						.getText().trim();
 
-				if (resourceName.length() > 0 && resourcePassword.length() > 0)
+				if (resourceName.length() > 0 && resourcePassword.length() > 0
+						&& resourceName.length() < 20
+						&& resourcePassword.length() < 20)
 				{
 					if (pin1.checkRow(resourceName, resourcePassword))
 					{
@@ -151,12 +154,14 @@ public class prog extends JFrame
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(writeFrame, "Ошибка записи!");
+						JOptionPane.showMessageDialog(writeFrame,
+								"Ошибка записи!");
 					}
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(writeFrame, "Все поля должны быть заполнены!");
+					JOptionPane.showMessageDialog(writeFrame,
+							"Все поля должны быть заполнены!");
 				}
 			}
 		});
@@ -176,10 +181,12 @@ public class prog extends JFrame
 				writeFrame.setTitle("Добавить новую запись");
 
 				resourseField.setBounds(10, 45, 265, 30);
-				resourseField.setBorder(new LineBorder(new Color(154, 172, 186)));
+				resourseField
+						.setBorder(new LineBorder(new Color(154, 172, 186)));
 				resourseField.setBackground(new Color(181, 207, 227));
 				passwordField.setBounds(10, 115, 265, 30);
-				passwordField.setBorder(new LineBorder(new Color(154, 172, 186)));
+				passwordField
+						.setBorder(new LineBorder(new Color(154, 172, 186)));
 				passwordField.setBackground(new Color(181, 207, 227));
 				saveButton.setBounds(10, 155, 264, 30);
 				res.setBounds(10, 10, 265, 30);

@@ -26,7 +26,6 @@ public class crypt
 
 			throws Exception
 	{
-		System.out.println("Encrypt string: " + strIn);
 		cipher.init(Cipher.ENCRYPT_MODE, key);
 
 		byte[] inputBytes = strIn.getBytes("UTF-8");
@@ -60,11 +59,9 @@ public class crypt
 
 	public void loadKey()
 	{
-		System.out.println("loading key");
 		File f = new File(keyName + ".data");
 		if (!f.exists())
 		{
-			System.out.println("creating new key");
 			try
 			{
 				key = KeyGenerator.getInstance(algorithm).generateKey();
@@ -77,7 +74,6 @@ public class crypt
 		}
 		else
 		{
-			System.out.println("key found");
 			key = (Key) Serialization.deserData(keyName);
 		}
 		System.out.println(key.toString());
@@ -92,7 +88,6 @@ public class crypt
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
-			System.out.println("error while creating cipher");
 		}
 		loadKey();
 		
