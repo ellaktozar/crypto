@@ -49,20 +49,20 @@ class MyOptionPane
 			{
 				String str = String.valueOf(pin.getPassword());
 				char[] ch = str.toCharArray();
-				if (ch.length >= 6)
+				boolean weak = true;
+				if (checkChar(ch) && checkSymbol(ch))
 				{
-					if (checkChar(ch) && checkSymbol(ch))
-					{
-						pinLabel.setText(labelText[2]);
-						pinLabel.setForeground(labelColor[2]);
-					}
-					else if (checkChar(ch) || checkSymbol(ch))
-					{
-						pinLabel.setText(labelText[1]);
-						pinLabel.setForeground(labelColor[1]);
-					}
+					weak = false;
+					pinLabel.setText(labelText[2]);
+					pinLabel.setForeground(labelColor[2]);
 				}
-				else
+				else if (checkChar(ch) || checkSymbol(ch))
+				{
+					weak = false;
+					pinLabel.setText(labelText[1]);
+					pinLabel.setForeground(labelColor[1]);
+				}
+				if (weak)
 				{
 					pinLabel.setText(labelText[0]);
 					pinLabel.setForeground(labelColor[0]);
@@ -109,21 +109,6 @@ class MyOptionPane
 			return false;
 		else if (cnt > 0)
 			return true;
-		return false;
-	}
-	
-	public boolean arrayHasSymbol(char[] array, char[] c)
-	{
-		for (char c1 : array)
-		{
-			for (char c2 : c)
-			{
-				if (c1 == c2)
-				{
-					return true;
-				}
-			}
-		}
 		return false;
 	}
 	
