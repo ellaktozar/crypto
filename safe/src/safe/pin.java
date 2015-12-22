@@ -25,9 +25,7 @@ public class pin
 		try
 		{
 			Class.forName("org.h2.Driver").newInstance();
-			strPin = JOptionPane
-					.showInputDialog(null, "ВВедите пин-код:", "Новый пароль",
-							1).toString().trim();
+			strPin = new MyOptionPane("Новый пин").show();
 			this.inPin = strPin;
 			if (inPin.length() > 0)
 			{

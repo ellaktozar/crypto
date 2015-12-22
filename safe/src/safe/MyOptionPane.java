@@ -2,6 +2,7 @@ package safe;
 
 import java.awt.Color;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,6 +12,8 @@ import javax.swing.event.DocumentListener;
 
 class MyOptionPane
 {
+	JButton exitBtn = new JButton();
+	JButton acceptBtn = new JButton();
 	String[] labelText = new String[]
 	{ "Слабый пароль", "Средний пароль", "Хороший пароль" };
 	char[] symbol = new char[]
@@ -72,7 +75,7 @@ class MyOptionPane
 	public String show()
 	{
 		JOptionPane.showMessageDialog(null, inputs, title,
-				JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.NO_OPTION);
 		return String.valueOf(pin.getPassword());
 	}
 
@@ -94,7 +97,9 @@ class MyOptionPane
 			if (c == (char) i)
 				cnt++;
 		}
-		if (cnt < leng)
+		if (cnt == leng)
+			return false;
+		else if (cnt > 0)
 			return true;
 		return false;
 	}
@@ -117,7 +122,9 @@ class MyOptionPane
 			if (c == symbol[i])
 				cnt++;
 		}
-		if (cnt < leng)
+		if (cnt == leng)
+			return false;
+		else if (cnt > 0)
 			return true;
 		return false;
 	}
