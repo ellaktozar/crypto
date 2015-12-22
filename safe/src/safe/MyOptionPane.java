@@ -67,7 +67,6 @@ class MyOptionPane
 					pinLabel.setText(labelText[0]);
 					pinLabel.setForeground(labelColor[0]);
 				}
-
 			}
 		});
 	}
@@ -81,23 +80,14 @@ class MyOptionPane
 
 	public boolean checkChar(char[] ch)
 	{
-		boolean f = false;
-		for (int i = 0; i < ch.length; i++)
-		{
-			f = hasChar(ch[i], ch.length);
-		}
-		return f;
-	}
-
-	public boolean hasChar(char c, int leng)
-	{
 		int cnt = 0;
 		for (int i = 0; i < 10; i++)
 		{
-			if (c == (char) i)
+			if (arrayHasSymbol(ch, (char)('0' + i)))
 				cnt++;
 		}
-		if (cnt == leng)
+		System.out.println("char " + cnt);
+		if (cnt == ch.length)
 			return false;
 		else if (cnt > 0)
 			return true;
@@ -106,26 +96,46 @@ class MyOptionPane
 
 	public boolean checkSymbol(char[] ch)
 	{
-		boolean f = false;
-		for (int i = 0; i < ch.length; i++)
-		{
-			f = hasSymbol(ch[i], ch.length);
-		}
-		return f;
-	}
-
-	public boolean hasSymbol(char c, int leng)
-	{
 		int cnt = 0;
 		for (int i = 0; i < symbol.length; i++)
 		{
-			if (c == symbol[i])
+			if (arrayHasSymbol(ch, symbol[i]))
+			{
 				cnt++;
+			}
 		}
-		if (cnt == leng)
+		System.out.println("symbol " + cnt);
+		if (cnt == ch.length)
 			return false;
 		else if (cnt > 0)
 			return true;
+		return false;
+	}
+	
+	public boolean arrayHasSymbol(char[] array, char[] c)
+	{
+		for (char c1 : array)
+		{
+			for (char c2 : c)
+			{
+				if (c1 == c2)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean arrayHasSymbol(char[] array, char c)
+	{
+		for (char c1 : array)
+		{
+			if (c1 == c)
+			{
+				return true;
+			}
+		}
 		return false;
 	}
 }
