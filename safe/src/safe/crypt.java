@@ -42,7 +42,6 @@ public class crypt
 
 			throws Exception
 	{
-		System.out.println("Decrypt string: " + strOut);
 		cipher.init(Cipher.DECRYPT_MODE, key);
 
 		byte[] encoded_val;
@@ -76,7 +75,6 @@ public class crypt
 		{
 			key = (Key) Serialization.deserData(keyName);
 		}
-		System.out.println(key.toString());
 	}
 
 	public crypt()

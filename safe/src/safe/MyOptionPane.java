@@ -1,33 +1,43 @@
 package safe;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 class MyOptionPane
 {
-	JButton exitBtn = new JButton();
-	JButton acceptBtn = new JButton();
+	boolean ret = false;
+	JButton exitBtn = new JButton("Отмена");
+	JButton acceptBtn = new JButton("Принять");
 	String[] labelText = new String[]
 	{ "Слабый пароль", "Средний пароль", "Хороший пароль" };
 	char[] symbol = new char[]
 	{ '!', '?', '@', '#', '№', ',', '.', '$', '%', '&', '*' };
 	Color[] labelColor = new Color[]
-	{ Color.RED, Color.YELLOW, Color.GREEN };
-	JPasswordField pin = new JPasswordField();
+	{ Color.RED, new Color(252, 162, 0), Color.GREEN };
+	JPasswordField pin = new JPasswordField(10);
 	String title;
 	JLabel pinLabel = new JLabel();
 	final JComponent[] inputs = new JComponent[]
-	{ new JLabel("Код для БД:"), pin, pinLabel };
+	{ new JLabel("Код для БД:"), pin, pinLabel, acceptBtn, exitBtn };
+	JFrame jf = new JFrame();
 
 	MyOptionPane(String title)
 	{
+		acceptBtn.addActionListener(e -> {
+			ret = true;
+			jf.setVisible(false);
+		});
+		exitBtn.addActionListener(e -> {
+			System.exit(0);
+		});
 		this.title = title;
 		pin.getDocument().addDocumentListener(new DocumentListener()
 		{
@@ -79,11 +89,17 @@ class MyOptionPane
 		});
 	}
 
-	public String show()
+	public void show()
 	{
-		JOptionPane.showMessageDialog(null, inputs, title,
-				JOptionPane.NO_OPTION);
-		return String.valueOf(pin.getPassword());
+		// JOptionPane.showMessageDialog(null, inputs, title,
+		// JOptionPane.NO_OPTION);
+
+		jf.setVisible(true);
+		jf.setLocationRelativeTo(null);
+		jf.setSize(300,300);
+		jf.setLayout(new FlowLayout());
+		for (JComponent k : inputs)
+			jf.getContentPane().add(k);
 	}
 
 	public boolean checkChar(char[] ch)

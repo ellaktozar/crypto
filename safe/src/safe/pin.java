@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
 
 public class pin
 {
@@ -16,7 +15,6 @@ public class pin
 	private boolean showAddBtn;
 	String tmp_1;
 	String inPin;
-	String strPin = null;
 	crypt cr = new crypt();
 
 	public boolean createNewPin()
@@ -25,8 +23,6 @@ public class pin
 		try
 		{
 			Class.forName("org.h2.Driver").newInstance();
-			strPin = new MyOptionPane("Новый пин").show();
-			this.inPin = strPin;
 			if (inPin.length() > 0)
 			{
 				Connection conn = DriverManager.getConnection("jdbc:h2:"
