@@ -28,9 +28,9 @@ class MyOptionPane
 	final JComponent[] inputs = new JComponent[]
 	{ new JLabel("Код для БД:"), pin, pinLabel, acceptBtn, exitBtn };
 	JDialog jd;
-
 	
-
+	String user_pin = "";
+	
 	MyOptionPane(prog frame)
 	{
 		jd = new JDialog(frame, "Пин", Dialog.ModalityType.APPLICATION_MODAL);
@@ -41,7 +41,8 @@ class MyOptionPane
 			jd.getContentPane().add(k);
 		}
 		acceptBtn.addActionListener(e -> {
-			show();
+			user_pin = String.valueOf(pin.getPassword());
+			jd.setVisible(false);
 		});
 		exitBtn.addActionListener(e -> {
 			System.exit(0);
@@ -95,10 +96,10 @@ class MyOptionPane
 		});
 	}
 
-	public String show()
+	public void show()
 	{
 		jd.setVisible(true);
-		return String.valueOf(pin.getPassword());
+		user_pin = String.valueOf(pin.getPassword());
 	}
 
 	public boolean checkChar(char[] ch)

@@ -78,7 +78,7 @@ public class prog extends JFrame
 		}
 		else
 		{
-			new MyOptionPane(frame);
+			pin1.inPin = JOptionPane.showInputDialog("Введите пин-код: ");
 		}	
 		frame.setVisible(true);
 		progSt();

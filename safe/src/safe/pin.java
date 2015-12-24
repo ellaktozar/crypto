@@ -22,7 +22,9 @@ public class pin
 		{
 			Class.forName("org.h2.Driver").newInstance();
 			MyOptionPane dialog = new MyOptionPane(pr);
-			inPin = dialog.show();
+			dialog.show();
+			inPin = dialog.user_pin;
+			System.out.println(inPin);
 			if (inPin.length() > 0)
 			{
 				Connection conn = DriverManager.getConnection("jdbc:h2:"
@@ -124,7 +126,7 @@ public class pin
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 			mas = new Object[][]
 			{
 			{ "Ошибка", "Ошибка", "Ошибка" }, };
