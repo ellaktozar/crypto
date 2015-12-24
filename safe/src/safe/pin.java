@@ -21,7 +21,7 @@ public class pin
 		try
 		{
 			Class.forName("org.h2.Driver").newInstance();
-			MyOptionPane dialog = new MyOptionPane(pr);
+			MyOptionPane dialog = new MyOptionPane(pr, true, "Первый запуск");
 			dialog.show();
 			inPin = dialog.user_pin;
 			System.out.println(inPin);

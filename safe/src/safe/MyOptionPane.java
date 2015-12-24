@@ -31,14 +31,18 @@ class MyOptionPane
 	
 	String user_pin = "";
 	
-	MyOptionPane(prog frame)
+	MyOptionPane(prog frame, boolean use_password_difficulty, String title)
 	{
-		jd = new JDialog(frame, "Пин", Dialog.ModalityType.APPLICATION_MODAL);
+		jd = new JDialog(frame, title, Dialog.ModalityType.APPLICATION_MODAL);
 		jd.setLocationRelativeTo(null);
 		jd.setSize(300,150);
 		jd.setLayout(new FlowLayout());
 		for (JComponent k : inputs) {
 			jd.getContentPane().add(k);
+		}
+		if (!use_password_difficulty)
+		{
+			jd.getContentPane().remove(pinLabel);
 		}
 		acceptBtn.addActionListener(e -> {
 			user_pin = String.valueOf(pin.getPassword());
