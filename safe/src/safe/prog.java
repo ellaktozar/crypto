@@ -69,7 +69,7 @@ public class prog extends JFrame
 		File nf = new File(System.getProperty("user.dir") + "/safe/safe.mv.db");
 		if (!nf.exists())
 		{
-			if (!pin1.createNewPin())
+			if (!pin1.createNewPin(this))
 			{
 				JOptionPane.showMessageDialog(null, "Пароль не введен",
 						"Ошибка", 0);

@@ -34,13 +34,12 @@ class MyOptionPane
 
 	MyOptionPane(prog frame)
 	{
-		jd = new JDialog(frame,"Пин",Dialog.DEFAULT_MODALITY_TYPE);
+		jd = new JDialog(frame, "Пин", Dialog.ModalityType.APPLICATION_MODAL);
 		jd.setLocationRelativeTo(null);
-		jd.setSize(300,100);
-		jd.setVisible(true);
+		jd.setSize(300,150);
 		jd.setLayout(new FlowLayout());
-		for (JComponent k : inputs){
-			jd.add(k);
+		for (JComponent k : inputs) {
+			jd.getContentPane().add(k);
 		}
 		acceptBtn.addActionListener(e -> {
 			show();
@@ -98,10 +97,10 @@ class MyOptionPane
 		});
 	}
 
-	public void show()
+	public String show()
 	{
-		jd.setVisible(false);
-		pin1.inPin = String.valueOf(pin.getPassword());
+		jd.setVisible(true);
+		return String.valueOf(pin.getPassword());
 	}
 
 	public boolean checkChar(char[] ch)

@@ -8,8 +8,6 @@ import java.sql.Statement;
 
 public class pin
 {
-
-	// private String pinFileText = "";
 	int pinIn;
 	int pinTrue;
 	private boolean showAddBtn;
@@ -17,12 +15,14 @@ public class pin
 	String inPin;
 	crypt cr = new crypt();
 
-	public boolean createNewPin()
+	public boolean createNewPin(prog pr)
 	{
 		boolean ret = false;
 		try
 		{
 			Class.forName("org.h2.Driver").newInstance();
+			MyOptionPane dialog = new MyOptionPane(pr);
+			inPin = dialog.show();
 			if (inPin.length() > 0)
 			{
 				Connection conn = DriverManager.getConnection("jdbc:h2:"
