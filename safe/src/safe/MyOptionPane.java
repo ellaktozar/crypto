@@ -48,7 +48,6 @@ class MyOptionPane
 		});
 		pin.getDocument().addDocumentListener(new DocumentListener()
 		{
-
 			@Override
 			public void removeUpdate(DocumentEvent e)
 			{
