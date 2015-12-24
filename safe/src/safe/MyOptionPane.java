@@ -1,11 +1,12 @@
 package safe;
 
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.event.DocumentEvent;
@@ -23,22 +24,30 @@ class MyOptionPane
 	Color[] labelColor = new Color[]
 	{ Color.RED, new Color(252, 162, 0), Color.GREEN };
 	JPasswordField pin = new JPasswordField(10);
-	String title;
 	JLabel pinLabel = new JLabel();
 	final JComponent[] inputs = new JComponent[]
 	{ new JLabel("Код для БД:"), pin, pinLabel, acceptBtn, exitBtn };
-	JFrame jf = new JFrame();
+	JDialog jd;
+	pin pin1 = new pin();
 
-	MyOptionPane(String title)
+	
+
+	MyOptionPane(prog frame)
 	{
+		jd = new JDialog(frame,"Пин",Dialog.DEFAULT_MODALITY_TYPE);
+		jd.setLocationRelativeTo(null);
+		jd.setSize(300,100);
+		jd.setVisible(true);
+		jd.setLayout(new FlowLayout());
+		for (JComponent k : inputs){
+			jd.add(k);
+		}
 		acceptBtn.addActionListener(e -> {
-			ret = true;
-			jf.setVisible(false);
+			show();
 		});
 		exitBtn.addActionListener(e -> {
 			System.exit(0);
 		});
-		this.title = title;
 		pin.getDocument().addDocumentListener(new DocumentListener()
 		{
 
@@ -91,15 +100,8 @@ class MyOptionPane
 
 	public void show()
 	{
-		// JOptionPane.showMessageDialog(null, inputs, title,
-		// JOptionPane.NO_OPTION);
-
-		jf.setVisible(true);
-		jf.setLocationRelativeTo(null);
-		jf.setSize(300,300);
-		jf.setLayout(new FlowLayout());
-		for (JComponent k : inputs)
-			jf.getContentPane().add(k);
+		jd.setVisible(false);
+		pin1.inPin = String.valueOf(pin.getPassword());
 	}
 
 	public boolean checkChar(char[] ch)

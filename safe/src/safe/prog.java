@@ -37,6 +37,7 @@ public class prog extends JFrame
 	private JTable table;
 	Object[][] mas;
 	pin pin1 = new pin();
+	JFrame jf = new JFrame();
 
 	private JFrame writeFrame = new JFrame();
 	private JPanel writePane = new JPanel();
@@ -45,6 +46,7 @@ public class prog extends JFrame
 	private JButton saveButton = new JButton("Сохранить");
 	private JLabel res = new JLabel("Введите ресурс");
 	private JLabel pas = new JLabel("Введите пароль");
+	static prog frame = new prog();
 
 	/**
 	 * Launch the application.
@@ -56,7 +58,7 @@ public class prog extends JFrame
 			@Override
 			public void run()
 			{
-				prog frame = new prog();
+				
 				frame.runOnStart(frame);
 			}
 		});
@@ -76,13 +78,9 @@ public class prog extends JFrame
 		}
 		else
 		{
-			pin1.inPin = JOptionPane
-					.showInputDialog(null, "Запуск", "Введите пин-код", 1)
-					.toString().trim();
-		}
-
+			new MyOptionPane(frame);
+		}	
 		frame.setVisible(true);
-
 		progSt();
 	}
 
@@ -91,6 +89,7 @@ public class prog extends JFrame
 	 */
 	public void progSt()
 	{
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
