@@ -28,7 +28,6 @@ class MyOptionPane
 	final JComponent[] inputs = new JComponent[]
 	{ new JLabel("Код для БД:"), pin, pinLabel, acceptBtn, exitBtn };
 	JDialog jd;
-	pin pin1 = new pin();
 
 	
 
