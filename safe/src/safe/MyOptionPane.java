@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 
+import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -25,30 +25,36 @@ class MyOptionPane
 	{ Color.RED, new Color(252, 162, 0), Color.GREEN };
 	JPasswordField pin = new JPasswordField(10);
 	JLabel pinLabel = new JLabel();
-	final JComponent[] inputs = new JComponent[]
-	{ new JLabel("Код для БД:"), pin, pinLabel, acceptBtn, exitBtn };
+	JLabel label = new JLabel("Код для БД:");
 	JDialog jd;
-	
+
 	String user_pin = "";
-	
+
 	MyOptionPane(prog frame, boolean use_password_difficulty, String title)
 	{
 		jd = new JDialog(frame, title, Dialog.ModalityType.APPLICATION_MODAL);
 		jd.setLocationRelativeTo(null);
-		jd.setSize(300,150);
-		jd.setLayout(new FlowLayout());
-		for (JComponent k : inputs) {
-			jd.getContentPane().add(k);
-		}
+		jd.setSize(300, 150);
+		jd.getContentPane().setLayout(new FlowLayout());
+
+		jd.getContentPane().add(label);
+		jd.getContentPane().add(pin);
+		jd.add(pinLabel);
+		jd.getContentPane().add(Box.createHorizontalStrut(300));
+		jd.getContentPane().add(acceptBtn);
+		jd.getContentPane().add(exitBtn);
+
 		if (!use_password_difficulty)
 		{
 			jd.getContentPane().remove(pinLabel);
 		}
-		acceptBtn.addActionListener(e -> {
+		acceptBtn.addActionListener(e ->
+		{
 			user_pin = String.valueOf(pin.getPassword());
 			jd.setVisible(false);
 		});
-		exitBtn.addActionListener(e -> {
+		exitBtn.addActionListener(e ->
+		{
 			System.exit(0);
 		});
 		pin.getDocument().addDocumentListener(new DocumentListener()
@@ -71,7 +77,7 @@ class MyOptionPane
 				String str = String.valueOf(pin.getPassword());
 				char[] ch = str.toCharArray();
 				boolean weak = true;
-				if (ch.length > 6)
+				if (ch.length >= 6)
 				{
 					if (checkChar(ch) && checkSymbol(ch))
 					{

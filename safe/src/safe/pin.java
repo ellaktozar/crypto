@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
 public class pin
 {
 	int pinIn;
@@ -27,12 +26,12 @@ public class pin
 			System.out.println(inPin);
 			if (inPin.length() > 0)
 			{
-				Connection conn = DriverManager.getConnection("jdbc:h2:"
-						+ System.getProperty("user.dir") + "/safe/safe", "sa",
-						inPin);
+				Connection conn = DriverManager
+						.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe", "sa", inPin);
 				Statement st = null;
 				st = conn.createStatement();
-				st.execute("CREATE TABLE IF NOT EXISTS passwords (id INT(10) PRIMARY KEY AUTO_INCREMENT, res VARCHAR(255), pass VARCHAR(100))");
+				st.execute(
+						"CREATE TABLE IF NOT EXISTS passwords (id INT(10) PRIMARY KEY AUTO_INCREMENT, res VARCHAR(255), pass VARCHAR(100))");
 				st.close();
 				conn.close();
 				ret = true;
@@ -51,8 +50,7 @@ public class pin
 		try
 		{
 			Class.forName("org.h2.Driver").newInstance();
-			Connection conn = DriverManager.getConnection(
-					"jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
+			Connection conn = DriverManager.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
 					"sa", inPin);
 			Statement st = null;
 			st = conn.createStatement();
@@ -78,14 +76,13 @@ public class pin
 		try
 		{
 			Class.forName("org.h2.Driver").newInstance();
-			Connection conn = DriverManager.getConnection(
-					"jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
+			Connection conn = DriverManager.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
 					"sa", inPin);
 			Statement st = null;
 			st = conn.createStatement();
 
-			st.execute("INSERT INTO passwords (res, pass) VALUES ('"
-					+ cr.encrypt(str1) + "','" + cr.encrypt(str2) + "')");
+			st.execute(
+					"INSERT INTO passwords (res, pass) VALUES ('" + cr.encrypt(str1) + "','" + cr.encrypt(str2) + "')");
 			st.close();
 			conn.close();
 			a = true;
@@ -105,8 +102,7 @@ public class pin
 			this.showAddBtn = true;
 			mas = new Object[checkQuery()][3];
 			Class.forName("org.h2.Driver").newInstance();
-			Connection conn = DriverManager.getConnection(
-					"jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
+			Connection conn = DriverManager.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe",
 					"sa", inPin);
 			Statement st = null;
 			st = conn.createStatement();
@@ -126,10 +122,10 @@ public class pin
 		}
 		catch (Exception e)
 		{
-			//e.printStackTrace();
+			// e.printStackTrace();
 			mas = new Object[][]
 			{
-			{ "Ошибка", "Ошибка", "Ошибка" }, };
+					{ "Ошибка", "Ошибка", "Ошибка" }, };
 			this.showAddBtn = false;
 		}
 		return mas;
@@ -165,9 +161,8 @@ public class pin
 			try
 			{
 				Class.forName("org.h2.Driver").newInstance();
-				Connection conn = DriverManager.getConnection("jdbc:h2:"
-						+ System.getProperty("user.dir") + "/safe/safe", "sa",
-						inPin);
+				Connection conn = DriverManager
+						.getConnection("jdbc:h2:" + System.getProperty("user.dir") + "/safe/safe", "sa", inPin);
 				Statement st = null;
 				st = conn.createStatement();
 				st.execute("DELETE FROM passwords WHERE id IN (" + ids + ")");

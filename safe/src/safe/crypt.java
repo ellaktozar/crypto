@@ -29,7 +29,7 @@ public class crypt
 		cipher.init(Cipher.ENCRYPT_MODE, key);
 
 		byte[] inputBytes = strIn.getBytes("UTF-8");
-		
+
 		byte[] encrypt = Base64.getEncoder().encode(cipher.doFinal(inputBytes));
 
 		String recovered = new String(encrypt);
@@ -45,9 +45,9 @@ public class crypt
 		cipher.init(Cipher.DECRYPT_MODE, key);
 
 		byte[] encoded_val;
-		
-		encoded_val = Base64.getDecoder().decode(strOut.getBytes())	;
-		
+
+		encoded_val = Base64.getDecoder().decode(strOut.getBytes());
+
 		byte[] recovered = cipher.doFinal(encoded_val);
 
 		String recovered_str = new String(recovered);
@@ -88,6 +88,6 @@ public class crypt
 			ex.printStackTrace();
 		}
 		loadKey();
-		
+
 	}
 }
