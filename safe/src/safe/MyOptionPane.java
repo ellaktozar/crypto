@@ -57,6 +57,7 @@ class MyOptionPane
 		acceptBtn.addActionListener(e ->
 		{
 			user_pin = String.valueOf(pin.getPassword());
+			System.out.println(user_pin);
 			jd.setVisible(false);
 		});
 		exitBtn.addActionListener(e ->

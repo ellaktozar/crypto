@@ -79,6 +79,7 @@ public class prog extends JFrame
 			MyOptionPane dialog = new MyOptionPane(frame, false, "Введите пин-код");
 			dialog.show();
 			pin1.inPin = dialog.user_pin;
+			System.out.println(pin1.inPin);
 		}
 		frame.setVisible(true);
 		progSt();
