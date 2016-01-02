@@ -25,7 +25,7 @@ class MyOptionPane
 	{ Color.RED, new Color(252, 162, 0), Color.GREEN };
 	JPasswordField pin = new JPasswordField(10);
 	JLabel pinLabel = new JLabel();
-	JLabel label = new JLabel("Код для БД:");
+	JLabel label = new JLabel();
 	JDialog jd;
 
 	String user_pin = "";
@@ -36,6 +36,7 @@ class MyOptionPane
 		jd.setLocationRelativeTo(null);
 		jd.setSize(300, 150);
 		jd.getContentPane().setLayout(new FlowLayout());
+		jd.setUndecorated(true);
 
 		jd.getContentPane().add(label);
 		jd.getContentPane().add(pin);
@@ -47,6 +48,11 @@ class MyOptionPane
 		if (!use_password_difficulty)
 		{
 			jd.getContentPane().remove(pinLabel);
+			label.setText("Код для БД:");
+		}
+		else
+		{
+			label.setText("Придумайте код для БД:");
 		}
 		acceptBtn.addActionListener(e ->
 		{
@@ -101,6 +107,14 @@ class MyOptionPane
 				{
 					pinLabel.setText(labelText[0]);
 					pinLabel.setForeground(labelColor[0]);
+				}
+				if (pinLabel.getText() == "Слабый пароль")
+				{
+					acceptBtn.setEnabled(false);
+				}
+				else
+				{
+					acceptBtn.setEnabled(true);
 				}
 			}
 		});
